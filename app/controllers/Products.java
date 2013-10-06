@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.avaje.ebean.*;
 import static play.mvc.Http.MultipartFormData;
 
 @With(CatchAction.class)
@@ -23,11 +23,11 @@ public class Products extends Controller {
   private static final Form<Product> productForm = Form.form(Product.class);
 
   public static Result index() {
-    return redirect(routes.Products.list(1));
+    return redirect(routes.Products.list(0));
   }
 
   public static Result list(Integer page) {
-    List<Product> products = Product.findAll();
+    Page<Product> products = Product.find(page);//findAll();
     return ok(list.render(products));
   }
 

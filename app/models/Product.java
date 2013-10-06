@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 
 import javax.validation.*;
 import javax.validation.metadata.*;
+import com.avaje.ebean.*;
 
 
 @Entity
@@ -100,8 +101,17 @@ public class Product extends Model implements PathBindable<Product>,
     return String.format("%s - %s", ean, name);
   }
 
-  public static List<Product> findAll() {
-    return find.all();
+  // public static List<Product> findAll() {
+  //   return find.all();
+  // }
+
+  public static Page<Product> find(int page) {
+    return 
+            find.where()
+                .orderBy("id asc")
+                .findPagingList(10)
+                .setFetchAhead(false)
+                .getPage(page);
   }
 
   public static Product findByEan(String ean) {
