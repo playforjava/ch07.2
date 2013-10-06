@@ -1,6 +1,5 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
-
+# --- Our database schema
+  
 # --- !Ups
 
 create table address (
@@ -51,15 +50,15 @@ create table product_tag (
   tag_id                         bigint not null,
   constraint pk_product_tag primary key (product_id, tag_id))
 ;
-create sequence address_seq;
+create sequence address_seq start with 100;
 
-create sequence product_seq;
+create sequence product_seq start with 100;
 
-create sequence stock_item_seq;
+create sequence stock_item_seq start with 100;
 
-create sequence tag_seq;
+create sequence tag_seq start with 100;
 
-create sequence warehouse_seq;
+create sequence warehouse_seq start with 100  ;
 
 alter table stock_item add constraint fk_stock_item_warehouse_1 foreign key (warehouse_id) references warehouse (id) on delete restrict on update restrict;
 create index ix_stock_item_warehouse_1 on stock_item (warehouse_id);
